@@ -1,3 +1,6 @@
+using ServiceCrmApi.Models;
+
+namespace ServiceCrmApi.Services;
 public static class PasswordService
 {
     public static string Hash(string password) => BCrypt.Net.BCrypt.HashPassword(password, workFactor: 12);

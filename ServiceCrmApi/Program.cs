@@ -1,10 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using ServiceCrmApi.Models;
+using ServiceCrmApi.Services;
+
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
 
-app.Run(async(context) => 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var KEY = jwtSettings["Key"];
+var ISSUER = jwtSettings["Issuer"];
+var AUDIENCE = jwtSettings["Audience"];
+
+if (string.IsNullOrEmpty(KEY) || string.IsNullOrEmpty(ISSUER) || string.IsNullOrEmpty(AUDIENCE))
 {
-    context.Response.ContentType = "text/html; charset=utf-8";
-    await context.Response.SendFileAsync("../Front");
-});
+    throw new InvalidOperationException("JWT settings not configured. Check user-secrets.");
+}
 
-app.Run();
+
+
+
