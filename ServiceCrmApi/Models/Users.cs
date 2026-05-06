@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ServiceCrmApi.Models;
 
-public enum UserRole { Admin, Master, Manager }
+public enum UserRole { Admin = 0, Master = 1, Manager = 2 }
 public class User
 {
     public int Id { get; set; }

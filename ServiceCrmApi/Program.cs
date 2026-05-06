@@ -10,15 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var KEY = jwtSettings["Key"];
-var ISSUER = jwtSettings["Issuer"];
-var AUDIENCE = jwtSettings["Audience"];
-
-if (string.IsNullOrEmpty(KEY) || string.IsNullOrEmpty(ISSUER) || string.IsNullOrEmpty(AUDIENCE))
-{
-    throw new InvalidOperationException("JWT settings not configured. Check user-secrets.");
-}
 
 builder.Services.AddAuthentication(options =>
 {
@@ -41,3 +32,18 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+if (builder.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+app.Run();

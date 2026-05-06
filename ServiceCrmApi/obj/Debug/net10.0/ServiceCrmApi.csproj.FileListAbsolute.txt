@@ -118,3 +118,12 @@ D:\college\ServiceCrm\ServiceCrmApi\obj\Debug\net10.0\refint\ServiceCrmApi.dll
 D:\college\ServiceCrm\ServiceCrmApi\obj\Debug\net10.0\ServiceCrmApi.pdb
 D:\college\ServiceCrm\ServiceCrmApi\obj\Debug\net10.0\ServiceCrmApi.genruntimeconfig.cache
 D:\college\ServiceCrm\ServiceCrmApi\obj\Debug\net10.0\ref\ServiceCrmApi.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\BCrypt.Net-Next.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll

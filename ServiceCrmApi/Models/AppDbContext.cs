@@ -24,7 +24,7 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Order>().Property(o => o.Priority)
             .HasConversion<string>()
             .HasDefaultValue(OrderPriority.Normal);
-        base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Transaction>().Property(t => t.Type)
             .HasConversion<string>()
@@ -32,7 +32,7 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<User>().Property(u => u.Role)
             .HasConversion<string>()
-            .HasDefaultValue(UserRole.Manager);
+            .HasDefaultValue(null);
 
         modelBuilder.Entity<Order>()
             .HasOne(o => o.Client)
