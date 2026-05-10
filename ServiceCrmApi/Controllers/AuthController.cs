@@ -4,6 +4,8 @@ using ServiceCrmApi.Services;
 using ServiceCrmApi.DTOs;
 using System.Security.Cryptography.X509Certificates;
 
+namespace ServiceCrmApi.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
