@@ -6,7 +6,9 @@ D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\ServiceCrmApi.deps.json
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\ServiceCrmApi.runtimeconfig.json
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\ServiceCrmApi.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\ServiceCrmApi.pdb
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\BCrypt.Net-Next.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Humanizer.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.Build.Framework.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -19,6 +21,12 @@ D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.EntityFrameworkC
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Design.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.VisualStudio.SolutionPersistence.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Mono.TextTemplating.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Newtonsoft.Json.dll
@@ -30,6 +38,7 @@ D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\System.Composition.Convent
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\System.Composition.Hosting.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\System.Composition.Runtime.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\System.Composition.TypedParts.dll
+D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.resources.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.resources.dll
 D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -118,12 +127,3 @@ D:\college\ServiceCrm\ServiceCrmApi\obj\Debug\net10.0\refint\ServiceCrmApi.dll
 D:\college\ServiceCrm\ServiceCrmApi\obj\Debug\net10.0\ServiceCrmApi.pdb
 D:\college\ServiceCrm\ServiceCrmApi\obj\Debug\net10.0\ServiceCrmApi.genruntimeconfig.cache
 D:\college\ServiceCrm\ServiceCrmApi\obj\Debug\net10.0\ref\ServiceCrmApi.dll
-D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\BCrypt.Net-Next.dll
-D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
-D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
-D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
-D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
-D:\college\ServiceCrm\ServiceCrmApi\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
