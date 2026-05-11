@@ -19,64 +19,65 @@ public class OrdersController : ControllerBase
         _context = context;
     }
 
-    // GET: api/Orders
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders()
-    {
-        var orders = await _context.Orders
-            .Include(o => o.Client)
-            .Include(o => o.User)
-            .Select(o => new OrderDto
-            {
-                Id = o.Id,
-                Device = o.Device,
-                Serial = o.Serial,
-                Issue = o.Issue,
-                Diagnosis = o.Diagnosis,
-                Priority = o.Priority.ToString(),
-                Status = o.Status ?? "New",
-                Cost = o.Cost,
-                Paid = o.Paid,
-                CreatedAt = o.CreatedAt,
-                ClientId = o.ClientId,
-                ClientName = o.Client != null ? o.Client.Name : "Unknown",
-                UserId = o.UserId,
-                ExecutorName = o.User != null ? o.User.Name : null
-            })
-            .ToListAsync();
-
-        return Ok(orders);
-    }
-
-    // GET: api/Orders/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<OrderDto>> GetOrder(int id)
-    {
-        var order = await _context.Orders
-            .Include(o => o.Client)
-            .Include(o => o.User)
-            .FirstOrDefaultAsync(o => o.Id == id);
-
-        if (order == null) return NotFound();
-
-        return Ok(new OrderDto
+// GET: api/Orders
+[HttpGet]
+public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders()
+{
+    var orders = await _context.Orders
+        .Include(o => o.Client)
+        .Include(o => o.User)
+        .Select(o => new OrderDto
         {
-            Id = order.Id,
-            Device = order.Device,
-            Serial = order.Serial,
-            Issue = order.Issue,
-            Diagnosis = order.Diagnosis,
-            Priority = order.Priority.ToString(),
-            Status = order.Status ?? "New",
-            Cost = order.Cost,
-            Paid = order.Paid,
-            CreatedAt = order.CreatedAt,
-            ClientId = order.ClientId,
-            ClientName = order.Client != null ? order.Client.Name : "Unknown",
-            UserId = order.UserId,
-            ExecutorName = order.User != null ? order.User.Name : null
-        });
-    }
+            Id = o.Id,
+            Device = o.Device,
+            Serial = o.Serial,
+            Issue = o.Issue,
+            Diagnosis = o.Diagnosis,
+            Priority = o.Priority.ToString(),
+            Status = o.Status ?? "New",
+            Cost = o.Cost,
+            Paid = o.Paid,
+            CreatedAt = o.CreatedAt,
+            ClientId = o.ClientId,
+            ClientName = o.Client != null ? o.Client.Name : null,
+            UserId = o.UserId,
+            ExecutorName = o.User != null ? o.User.Name : null
+        })
+        .ToListAsync();
+
+    return Ok(orders);
+}
+
+// GET: api/Orders/5
+[HttpGet("{id}")]
+public async Task<ActionResult<OrderDto>> GetOrder(int id)
+{
+    var order = await _context.Orders
+        .Include(o => o.Client)
+        .Include(o => o.User)
+        .Select(o => new OrderDto
+        {
+            Id = o.Id,
+            Device = o.Device,
+            Serial = o.Serial,
+            Issue = o.Issue,
+            Diagnosis = o.Diagnosis,
+            Priority = o.Priority.ToString(),
+            Status = o.Status ?? "New",
+            Cost = o.Cost,
+            Paid = o.Paid,
+            CreatedAt = o.CreatedAt,
+            ClientId = o.ClientId,
+            ClientName = o.Client != null ? o.Client.Name : null,
+            UserId = o.UserId,
+            ExecutorName = o.User != null ? o.User.Name : null
+        })
+        .FirstOrDefaultAsync(o => o.Id == id);
+
+    if (order == null) return NotFound();
+
+    return Ok(order);
+}
 
     // POST: api/Orders
     [HttpPost]
@@ -118,8 +119,25 @@ public class OrdersController : ControllerBase
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
 
+         var resultDto = new OrderDto
+        {
+            Id = order.Id,
+            Device = order.Device,
+            Serial = order.Serial,
+            Issue = order.Issue,
+            Priority = order.Priority.ToString(),
+            Status = order.Status ?? "New",
+            Cost = order.Cost,
+            Paid = order.Paid,
+            CreatedAt = order.CreatedAt,
+            ClientId = order.ClientId,
+            ClientName = client.Name, // Берем из загруженного ранее клиента
+            UserId = executorId,
+            ExecutorName = userName  // Или имя пользователя, которое мы нашли
+        };
+
         // Возвращаем полный объект с данными о клиенте и исполнителе
-        return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
+        return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, resultDto);
     }
 
     // PUT: api/Orders/5

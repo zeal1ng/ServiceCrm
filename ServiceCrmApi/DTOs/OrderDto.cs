@@ -7,13 +7,13 @@ public class OrderDto
     public string? Serial { get; set; }
     public string? Issue { get; set; }
     public string? Diagnosis { get; set; }
-    public string Priority { get; set; } = "Normal";
-    public string Status { get; set; } = "New";
+    public string Priority { get; set; } = string.Empty;
+    public string Status { get; set; } = string.Empty;
     public decimal Cost { get; set; }
     public decimal Paid { get; set; }
     public DateTime CreatedAt { get; set; }
     
-    // Связи
+    // Только ID и имя клиента, НЕ весь объект Client со списком заказов
     public int ClientId { get; set; }
     public string? ClientName { get; set; }
     
