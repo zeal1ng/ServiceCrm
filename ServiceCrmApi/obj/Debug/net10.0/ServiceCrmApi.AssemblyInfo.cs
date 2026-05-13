@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("6a8b8c9d-0e1f-4a2b-8c3d-4e5f6a7b8c9d")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ServiceCrmApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0548c31647285629025d0c4b01fa9b3ae6034582")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+98290d64aedeb5bc42d586b623fd00f9144ecfbf")]
 [assembly: System.Reflection.AssemblyProductAttribute("ServiceCrmApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ServiceCrmApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

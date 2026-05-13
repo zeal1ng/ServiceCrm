@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServiceCrmApi.Models;
 using ServiceCrmApi.DTOs;
+using ServiceCrmApi.Services;
 using System.Security.Claims;
 
 namespace ServiceCrmApi.Controllers;
@@ -13,11 +14,15 @@ namespace ServiceCrmApi.Controllers;
 public class OrdersController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly ActivityLogService _log;
 
-    public OrdersController(AppDbContext context)
+    public OrdersController(AppDbContext context, ActivityLogService log)
     {
         _context = context;
+        _log = log;
     }
+
+    private string? GetCurrentUserName() => User.FindFirst(ClaimTypes.Name)?.Value;
 
 // GET: api/Orders
 [HttpGet]
@@ -112,6 +117,7 @@ public async Task<ActionResult<OrderDto>> GetOrder(int id)
             Priority = priority,
             Cost = dto.Cost,
             Status = "New",
+            Comment = dto.Comment,
             UserId = executorId,
             CreatedAt = DateTime.UtcNow
         };
@@ -137,11 +143,13 @@ public async Task<ActionResult<OrderDto>> GetOrder(int id)
         };
 
         // Возвращаем полный объект с данными о клиенте и исполнителе
+        await _log.LogAsync(null, GetCurrentUserName(), "Create", "Order", order.Id, $"Создан заказ #{order.Id}: {order.Device}");
         return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, resultDto);
     }
 
     // PUT: api/Orders/5
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> UpdateOrder(int id, UpdateOrderDto dto)
     {
         var order = await _context.Orders.FindAsync(id);
@@ -167,6 +175,8 @@ public async Task<ActionResult<OrderDto>> GetOrder(int id)
         }
 
         await _context.SaveChangesAsync();
+
+        await _log.LogAsync(null, GetCurrentUserName(), "Update", "Order", id, $"Обновлён заказ #{id}");
         return NoContent();
     }
 
@@ -180,6 +190,8 @@ public async Task<ActionResult<OrderDto>> GetOrder(int id)
 
         _context.Orders.Remove(order);
         await _context.SaveChangesAsync();
+
+        await _log.LogAsync(null, GetCurrentUserName(), "Delete", "Order", id, $"Удалён заказ #{id}");
 
         return NoContent();
     }

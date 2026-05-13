@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServiceCrmApi.Models;
 using ServiceCrmApi.DTOs;
+using ServiceCrmApi.Services;
+using System.Security.Claims;
 
 namespace ServiceCrmApi.Controllers;
 
@@ -12,11 +14,15 @@ namespace ServiceCrmApi.Controllers;
 public class TransactionsController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly ActivityLogService _log;
 
-    public TransactionsController(AppDbContext context)
+    public TransactionsController(AppDbContext context, ActivityLogService log)
     {
         _context = context;
+        _log = log;
     }
+
+    private string? GetCurrentUserName() => User.FindFirst(ClaimTypes.Name)?.Value;
 
     // GET: api/Transactions?orderId=5
     [HttpGet]
@@ -111,6 +117,9 @@ public class TransactionsController : ControllerBase
         _context.Transactions.Add(transaction);
         await _context.SaveChangesAsync();
 
+        var typeLabel = type == TransactionType.Income ? "доход" : "расход";
+        await _log.LogAsync(null, GetCurrentUserName(), "Create", "Transaction", transaction.Id, $"Добавлен {typeLabel} на {dto.Amount}₽ по заказу #{dto.OrderId}");
+
         var resultDto = new TransactionDto
         {
             Id = transaction.Id,
@@ -156,6 +165,8 @@ public class TransactionsController : ControllerBase
 
         _context.Transactions.Remove(transaction);
         await _context.SaveChangesAsync();
+
+        await _log.LogAsync(null, GetCurrentUserName(), "Delete", "Transaction", id, $"Удалена транзакция #{id}");
 
         return NoContent();
     }

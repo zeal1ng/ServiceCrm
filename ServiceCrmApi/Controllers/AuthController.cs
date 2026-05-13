@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ServiceCrmApi.Models;
 using ServiceCrmApi.Services;
 using ServiceCrmApi.DTOs;
-using System.Security.Cryptography.X509Certificates;
 
 namespace ServiceCrmApi.Controllers;
 
@@ -12,30 +12,33 @@ public class AuthController : ControllerBase
 {
     private readonly AppDbContext _context;
     private readonly ITokenService _tokenService;
+    private readonly ActivityLogService _log;
 
-    public AuthController(AppDbContext context, ITokenService tokenService)
+    public AuthController(AppDbContext context, ITokenService tokenService, ActivityLogService log)
     {
         _context = context;
         _tokenService = tokenService;
+        _log = log;
     }
 
     [HttpPost("login")]
-    public ActionResult<AuthResponse> Login([FromBody] LoginRequest request)
+    public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginRequest request)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Name == request.Name);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Name == request.Name);
         if (user == null || !PasswordService.Verify(request.Password, user.PasswordHash))
         {
             return Unauthorized(new { message = "Invalid username or password" });
         }
 
         var token = _tokenService.CreateToken(user);
+        await _log.LogAsync(user.Id, user.Name, "Login", "User", user.Id, "Вход в систему");
         return Ok(new { token });
     }
 
     [HttpPost("register")]
-    public ActionResult<AuthResponse> Register([FromBody] RegisterRequest request)
+    public async Task<ActionResult<AuthResponse>> Register([FromBody] RegisterRequest request)
     {
-        if (_context.Users.Any(u => u.Name == request.Name))
+        if (await _context.Users.AnyAsync(u => u.Name == request.Name))
         {
             return BadRequest(new { message = "Username already exists" });
         }
@@ -43,14 +46,16 @@ public class AuthController : ControllerBase
         var user = new User
         {
             Name = request.Name,
+            Email = request.Email,
             PasswordHash = PasswordService.Hash(request.Password),
             Role = UserRole.Master
         };
 
         _context.Users.Add(user);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         var token = _tokenService.CreateToken(user);
+        await _log.LogAsync(user.Id, user.Name, "Register", "User", user.Id, "Регистрация нового пользователя");
         return Ok(new { token });
     }
 }

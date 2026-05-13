@@ -24,7 +24,7 @@ public class ProfileController : ControllerBase
         return Ok(new
         {
             message = "Доступ разрешен",
-            username = username,
+            userName = username,
             role = role,
             id = subjectId
         });

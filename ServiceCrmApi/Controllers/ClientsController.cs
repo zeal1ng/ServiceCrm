@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ServiceCrmApi.Models;
 using ServiceCrmApi.DTOs;
+using ServiceCrmApi.Services;
+using System.Security.Claims;
 
 namespace ServiceCrmApi.Controllers;
 
@@ -12,11 +14,15 @@ namespace ServiceCrmApi.Controllers;
 public class ClientsController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly ActivityLogService _log;
 
-    public ClientsController(AppDbContext context)
+    public ClientsController(AppDbContext context, ActivityLogService log)
     {
         _context = context;
+        _log = log;
     }
+
+    private string? GetCurrentUserName() => User.FindFirst(ClaimTypes.Name)?.Value;
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ClientDto>>> GetClients()
@@ -55,7 +61,7 @@ public class ClientsController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Master,Admin")] 
+    [Authorize(Roles = "Admin,Manager")] 
     public async Task<ActionResult<Client>> CreateClient(CreateClientDto dto)
     {
         var client = new Client
@@ -70,11 +76,13 @@ public class ClientsController : ControllerBase
         _context.Clients.Add(client);
         await _context.SaveChangesAsync();
 
+        await _log.LogAsync(null, GetCurrentUserName(), "Create", "Client", client.Id, $"Создан клиент: {client.Name}");
+
         return CreatedAtAction(nameof(GetClient), new { id = client.Id }, client);
     }
 
     [HttpPut("{id}")]
-    [Authorize(Roles = "Master,Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> UpdateClient(int id, UpdateClientDto dto)
     {
         var client = await _context.Clients.FindAsync(id);
@@ -88,18 +96,23 @@ public class ClientsController : ControllerBase
 
         await _context.SaveChangesAsync();
 
+        await _log.LogAsync(null, GetCurrentUserName(), "Update", "Client", id, $"Обновлён клиент: {client.Name}");
+
         return NoContent();
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Master,Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> DeleteClient(int id)
     {
         var client = await _context.Clients.FindAsync(id);
         if (client == null) return NotFound();
 
+        var name = client.Name;
         _context.Clients.Remove(client);
         await _context.SaveChangesAsync();
+
+        await _log.LogAsync(null, GetCurrentUserName(), "Delete", "Client", id, $"Удалён клиент: {name}");
 
         return NoContent();
     }

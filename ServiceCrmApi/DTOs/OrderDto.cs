@@ -29,6 +29,7 @@ public class CreateOrderDto
     public string? Issue { get; set; }
     public string Priority { get; set; } = "Normal";
     public decimal Cost { get; set; }
+    public string? Comment { get; set; }
 }
 
 public class UpdateOrderDto
