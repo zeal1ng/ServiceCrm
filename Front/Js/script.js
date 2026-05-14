@@ -79,7 +79,6 @@ function switchLoginTab(tab) {
     document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
     document.querySelector(`.login-tab[onclick*="${tab}"]`).classList.add('active');
     document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
-    document.getElementById('register-form').style.display = tab === 'register' ? 'block' : 'none';
     document.getElementById('order-form').style.display = tab === 'order' ? 'block' : 'none';
     document.getElementById('login-error').textContent = '';
 }
@@ -105,24 +104,6 @@ async function submitPublicOrder() {
     }
 }
 
-async function register() {
-    const name = document.getElementById('reg-name').value.trim();
-    const email = document.getElementById('reg-email').value.trim();
-    const password = document.getElementById('reg-password').value;
-    if (!name || !password) { showToast('Заполните имя и пароль', 'error'); return; }
-
-    const result = await api('/auth/register', {
-        method: 'POST',
-        body: JSON.stringify({ name, email, password })
-    });
-    if (result && result.token) {
-        setToken(result.token);
-        document.getElementById('login-overlay').classList.remove('active');
-        showToast('Регистрация успешна', 'success');
-        loadProfile();
-    }
-}
-
 function logout() {
     setToken(null);
     currentUser = null;
@@ -141,6 +122,12 @@ async function loadProfile() {
             const allowed = item.dataset.roles.split(',');
             if (!allowed.includes(user.role)) item.style.display = 'none';
         });
+
+        const canManage = user.role === 'Admin' || user.role === 'Manager';
+        const btnWarehouse = document.getElementById('btn-create-warehouse');
+        const btnEmployee = document.getElementById('btn-create-employee');
+        if (btnWarehouse) btnWarehouse.style.display = canManage ? '' : 'none';
+        if (btnEmployee) btnEmployee.style.display = canManage ? '' : 'none';
     }
 }
 
@@ -229,23 +216,28 @@ async function updateDashboard() {
         const revenue = orders
             .filter(o => o.createdAt && new Date(o.createdAt) >= monthStart)
             .reduce((sum, o) => sum + o.paid, 0);
-        document.getElementById('dash-month-revenue').textContent = revenue + ' Br';
+        document.getElementById('dash-month-revenue').textContent = revenue + ' Byn';
     }
 }
 
 // ==================== ЗАКАЗЫ ====================
 async function loadOrders() {
-    const orders = await api('/orders');
+    const orders = await api(buildFilterQuery());
     const container = document.getElementById('tab-client-orders');
+    const btnText = document.getElementById('btn-filter-text');
+    const hasFilters = Object.keys(_orderFilters).length > 0;
+    if (btnText) btnText.textContent = hasFilters ? 'Фильтры активны' : 'Фильтровать';
+    document.getElementById('btn-filter')?.classList.toggle('active', hasFilters);
     if (!orders || orders.length === 0) {
         container.innerHTML = `
             <div class="empty-data">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="64" height="64"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                <h2>Заказов пока нет</h2>
-                <p>Создайте первый заказ</p>
+                <h2>${hasFilters ? 'Ничего не найдено' : 'Заказов пока нет'}</h2>
+                <p>${hasFilters ? 'Попробуйте изменить параметры фильтрации' : 'Создайте первый заказ'}</p>
             </div>`;
         return;
     }
+    if (hasFilters) showToast(`Найдено заказов: ${orders.length}`, 'info');
     const isAdmin = currentUser && currentUser.role === 'Admin';
     const canEdit = currentUser && (currentUser.role === 'Admin' || currentUser.role === 'Manager');
     container.innerHTML = `
@@ -276,8 +268,8 @@ async function loadOrders() {
                             <td><span class="status-badge status-${(o.status || 'new').toLowerCase()}">${o.status || 'Новый'}</span></td>
                             <td style="color:${PRIORITY_COLORS[o.priority] || ''};font-weight:600">${PRIORITY_LABELS[o.priority] || o.priority}</td>
                             <td>${o.executorName || '-'}</td>
-                            <td>${o.cost} Br</td>
-                            <td>${o.paid} Br</td>
+                            <td>${o.cost} Byn</td>
+                            <td>${o.paid} Byn</td>
                             <td>${o.createdAt ? new Date(o.createdAt).toLocaleDateString() : '-'}</td>
                             <td style="white-space:nowrap">
                                 ${canEdit ? `<button class="btn-table" onclick="openEditOrderModal(${o.id})">✎</button>` : ''}
@@ -1084,36 +1076,76 @@ async function saveSettings(type) {
 }
 
 // ==================== ПОИСК И ФИЛЬТРЫ ====================
-function searchOrders() {
+let _orderFilters = {};
+
+function buildFilterQuery() {
+    const params = new URLSearchParams();
+    if (_orderFilters.status) params.set('status', _orderFilters.status);
+    if (_orderFilters.dateFrom) params.set('dateFrom', _orderFilters.dateFrom);
+    if (_orderFilters.dateTo) params.set('dateTo', _orderFilters.dateTo);
+    if (_orderFilters.priority) params.set('priority', _orderFilters.priority);
+    if (_orderFilters.search) params.set('search', _orderFilters.search);
+    const qs = params.toString();
+    return qs ? `/orders?${qs}` : '/orders';
+}
+
+async function searchOrders() {
     const query = document.getElementById('order-search').value.trim();
-    if (!query) { showToast('Введите поисковый запрос', 'warning'); return; }
-    showToast(`Поиск: "${query}"`, 'info');
+    _orderFilters.search = query || undefined;
+    document.getElementById('order-search').value = _orderFilters.search || '';
+    loadOrders();
 }
 
 function openFilterPanel() {
+    const selStatus = _orderFilters.status || '';
+    const selPriority = _orderFilters.priority || '';
     const filters = `
         <div class="form-group">
             <label>Статус</label>
             <select id="filter-status">
                 <option value="">Все статусы</option>
-                ${STATUSES.map(s => `<option value="${s}">${STATUS_LABELS[s]}</option>`).join('')}
+                ${STATUSES.map(s => `<option value="${s}" ${s === selStatus ? 'selected' : ''}>${STATUS_LABELS[s]}</option>`).join('')}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Приоритет</label>
+            <select id="filter-priority">
+                <option value="">Все приоритеты</option>
+                ${PRIORITIES.map(p => `<option value="${p}" ${p === selPriority ? 'selected' : ''}>${PRIORITY_LABELS[p]}</option>`).join('')}
             </select>
         </div>
         <div class="form-row">
             <div class="form-group">
                 <label>Дата с</label>
-                <input type="date" id="filter-date-from">
+                <input type="date" id="filter-date-from" value="${_orderFilters.dateFrom || ''}">
             </div>
             <div class="form-group">
                 <label>Дата по</label>
-                <input type="date" id="filter-date-to">
+                <input type="date" id="filter-date-to" value="${_orderFilters.dateTo || ''}">
             </div>
-        </div>`;
+        </div>
+        <button class="btn btn-secondary" onclick="resetFilters()" style="width:100%;margin-top:8px">Сбросить фильтры</button>`;
     openModal('Фильтры', filters, applyFilters);
 }
 
 function applyFilters() {
-    showToast('Фильтры применены', 'success');
+    _orderFilters.status = document.getElementById('filter-status')?.value || '';
+    _orderFilters.priority = document.getElementById('filter-priority')?.value || '';
+    _orderFilters.dateFrom = document.getElementById('filter-date-from')?.value || '';
+    _orderFilters.dateTo = document.getElementById('filter-date-to')?.value || '';
+
+    if (!_orderFilters.status) delete _orderFilters.status;
+    if (!_orderFilters.priority) delete _orderFilters.priority;
+    if (!_orderFilters.dateFrom) delete _orderFilters.dateFrom;
+    if (!_orderFilters.dateTo) delete _orderFilters.dateTo;
+
+    closeModal();
+    loadOrders();
+}
+
+function resetFilters() {
+    _orderFilters = {};
+    document.getElementById('order-search').value = '';
     closeModal();
     loadOrders();
 }
@@ -1139,9 +1171,9 @@ async function loadAccounting() {
     const totalOrders = orders.length;
     const totalRevenue = orders.reduce((s, o) => s + (o.paid || 0), 0);
     const totalCost = orders.reduce((s, o) => s + (o.cost || 0), 0);
-    const totalDebt = totalCost - totalRevenue;
-    const completed = orders.filter(o => o.status === 'Completed' || o.status === 'Ready').length;
-    const inWork = orders.filter(o => o.status === 'In Progress' || o.status === 'Pending').length;
+    const totalDebt = Math.max(0, totalCost - totalRevenue);
+    const completed = orders.filter(o => o.status === 'Ready' || o.status === 'Issued').length;
+    const inWork = orders.filter(o => o.status === 'New' || o.status === 'Diagnostics' || o.status === 'Repair').length;
 
     let income = 0, expense = 0;
     if (transactions) {

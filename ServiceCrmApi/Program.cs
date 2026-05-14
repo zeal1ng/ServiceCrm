@@ -44,14 +44,14 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        if (allowedOrigins is { Length: > 0 })
-        {
-            policy.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader();
-        }
-        else
-        {
+        // if (allowedOrigins is { Length: > 0 })
+        // {
+        //     policy.WithOrigins(allowedOrigins).AllowAnyMethod().AllowAnyHeader();
+        // }
+        // else
+        // {
             policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-        }
+        // }
     });
 });
 

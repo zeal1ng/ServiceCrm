@@ -63,7 +63,7 @@ public class WarehousesController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Master,Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<ActionResult<WarehouseDto>> CreateWarehouse(CreateWarehouseDto dto)
     {
         var warehouse = new Warehouse
@@ -90,7 +90,7 @@ public class WarehousesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Roles = "Master,Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> UpdateWarehouse(int id, UpdateWarehouseDto dto)
     {
         var warehouse = await _context.Warehouses.FindAsync(id);
@@ -108,7 +108,7 @@ public class WarehousesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Roles = "Master,Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<IActionResult> DeleteWarehouse(int id)
     {
         var warehouse = await _context.Warehouses.FindAsync(id);

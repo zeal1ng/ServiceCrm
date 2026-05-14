@@ -69,7 +69,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Master,Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     public async Task<ActionResult<UserDto>> CreateUser(CreateUserDto dto)
     {
         if (!Enum.TryParse<UserRole>(dto.Role, true, out var role))

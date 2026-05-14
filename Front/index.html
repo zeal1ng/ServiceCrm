@@ -98,9 +98,9 @@
 
                     <div class="action-bar">
                         <div class="search-bar">
-                            <button class="btn btn-filter" onclick="openFilterPanel()">
+                            <button class="btn btn-filter" id="btn-filter" onclick="openFilterPanel()">
                                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
-                                Фильтровать
+                                <span id="btn-filter-text">Фильтровать</span>
                             </button>
                             <div class="search-input-wrapper">
                                 <input type="text" placeholder="Поиск..." class="search-input" id="order-search">
@@ -155,7 +155,7 @@
                                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
                             </div>
                             <div class="dash-card-content">
-                                <span class="dash-card-value" id="dash-month-revenue">0 Br</span>
+                                <span class="dash-card-value" id="dash-month-revenue">0 Byn</span>
                                 <span class="dash-card-label">Выручка за месяц</span>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                 <div id="page-warehouses" class="page">
                     <div class="page-header">
                         <h1 class="page-title">Склады</h1>
-                        <button class="btn btn-create" onclick="openCreateWarehouseModal()">Добавить склад</button>
+                        <button class="btn btn-create" id="btn-create-warehouse" onclick="openCreateWarehouseModal()">Добавить склад</button>
                     </div>
                     <div class="empty-data">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
@@ -211,7 +211,7 @@
                 <div id="page-employees" class="page">
                     <div class="page-header">
                         <h1 class="page-title">Сотрудники</h1>
-                        <button class="btn btn-create" onclick="openCreateEmployeeModal()">Добавить сотрудника</button>
+                        <button class="btn btn-create" id="btn-create-employee" onclick="openCreateEmployeeModal()">Добавить сотрудника</button>
                     </div>
                     <div class="empty-data">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
@@ -254,7 +254,6 @@
             <div id="login-error" class="login-error"></div>
             <div class="login-tabs">
                 <button class="login-tab active" onclick="switchLoginTab('login')">Вход</button>
-                <button class="login-tab" onclick="switchLoginTab('register')">Регистрация</button>
                 <button class="login-tab" onclick="switchLoginTab('order')">Сделать заказ</button>
             </div>
             <div id="login-form">
@@ -265,18 +264,6 @@
                     <input type="password" id="login-password" placeholder="Пароль" onkeydown="if(event.key==='Enter')login()">
                 </div>
                 <button class="btn btn-primary" onclick="login()" style="width:100%">Войти</button>
-            </div>
-            <div id="register-form" style="display:none">
-                <div class="form-group">
-                    <input type="text" id="reg-name" placeholder="Имя">
-                </div>
-                <div class="form-group">
-                    <input type="email" id="reg-email" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <input type="password" id="reg-password" placeholder="Пароль" onkeydown="if(event.key==='Enter')register()">
-                </div>
-                <button class="btn btn-primary" onclick="register()" style="width:100%">Зарегистрироваться</button>
             </div>
             <div id="order-form" style="display:none">
                 <div class="form-row">

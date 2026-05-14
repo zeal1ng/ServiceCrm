@@ -26,11 +26,38 @@ public class OrdersController : ControllerBase
 
 // GET: api/Orders
 [HttpGet]
-public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders()
+public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders(
+    [FromQuery] string? status,
+    [FromQuery] DateTime? dateFrom,
+    [FromQuery] DateTime? dateTo,
+    [FromQuery] string? priority,
+    [FromQuery] string? search)
 {
-    var orders = await _context.Orders
+    var query = _context.Orders
         .Include(o => o.Client)
         .Include(o => o.User)
+        .AsQueryable();
+
+    if (!string.IsNullOrEmpty(status))
+        query = query.Where(o => o.Status == status);
+
+    if (dateFrom.HasValue)
+        query = query.Where(o => o.CreatedAt >= dateFrom.Value);
+
+    if (dateTo.HasValue)
+        query = query.Where(o => o.CreatedAt <= dateTo.Value);
+
+    if (!string.IsNullOrEmpty(priority) && Enum.TryParse<OrderPriority>(priority, true, out var p))
+        query = query.Where(o => o.Priority == p);
+
+    if (!string.IsNullOrEmpty(search))
+        query = query.Where(o =>
+            (o.Client != null && o.Client.Name.Contains(search)) ||
+            (o.Device != null && o.Device.Contains(search)) ||
+            (o.Serial != null && o.Serial.Contains(search)) ||
+            (o.Issue != null && o.Issue.Contains(search)));
+
+    var orders = await query
         .Select(o => new OrderDto
         {
             Id = o.Id,
