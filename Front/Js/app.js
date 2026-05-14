@@ -1,0 +1,48 @@
+import { checkAuth } from './auth.js';
+import { login, logout, switchLoginTab, submitPublicOrder } from './auth.js';
+import { initParticles } from './particles.js';
+import { toggleSidebar, initNavigation } from './navigation.js';
+import { loadOrders, openCreateOrderModal, openEditOrderModal, deleteOrder, searchOrders, openFilterPanel, applyFilters, resetFilters } from './orders.js';
+import { loadClients, openCreateClientModal, openEditClientModal, deleteClient } from './clients.js';
+import { loadProducts, openCreateProductModal, openEditProductModal, deleteProduct } from './products.js';
+import { showWarehouseProducts, goBackToWarehouses, openCreateWarehouseModal } from './warehouses.js';
+import { loadEmployees, openCreateEmployeeModal, openEditEmployeeModal, deleteEmployee } from './employees.js';
+import { openSettingsModal } from './settings.js';
+import { openHistoryModal } from './history.js';
+import { openModal, closeModal, saveModal, showToast, toggleNotifications } from './utils.js';
+
+window.toggleSidebar = toggleSidebar;
+window.logout = logout;
+window.openFilterPanel = openFilterPanel;
+window.searchOrders = searchOrders;
+window.openCreateOrderModal = openCreateOrderModal;
+window.openCreateClientModal = openCreateClientModal;
+window.openCreateWarehouseModal = openCreateWarehouseModal;
+window.openCreateProductModal = openCreateProductModal;
+window.openCreateEmployeeModal = openCreateEmployeeModal;
+window.openSettingsModal = openSettingsModal;
+window.openHistoryModal = openHistoryModal;
+window.toggleNotifications = toggleNotifications;
+window.login = login;
+window.switchLoginTab = switchLoginTab;
+window.submitPublicOrder = submitPublicOrder;
+window.closeModal = closeModal;
+window.saveModal = saveModal;
+window.showWarehouseProducts = showWarehouseProducts;
+window.goBackToWarehouses = goBackToWarehouses;
+window.openEditOrderModal = openEditOrderModal;
+window.deleteOrder = deleteOrder;
+window.openEditClientModal = openEditClientModal;
+window.deleteClient = deleteClient;
+window.openEditProductModal = openEditProductModal;
+window.deleteProduct = deleteProduct;
+window.openEditEmployeeModal = openEditEmployeeModal;
+window.deleteEmployee = deleteEmployee;
+window.resetFilters = resetFilters;
+window.applyFilters = applyFilters;
+
+document.addEventListener('DOMContentLoaded', function() {
+    checkAuth();
+    initParticles();
+    initNavigation();
+});
