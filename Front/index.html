@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiceCRM - CRM для сервисного центра</title>
-    <link rel="stylesheet" href="../Css/styles.css">
+    <link rel="stylesheet" href="Css/styles.css">
 </head>
 <body>
     <div class="container">
@@ -37,7 +37,7 @@
                     Клиенты
                     <span class="arrow">›</span>
                 </a>
-                <a href="#" class="nav-item" data-page="accounting">
+                <a href="#" class="nav-item" data-page="accounting" data-roles="Admin,Manager">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
                     Бухгалтерия
                     <span class="arrow">›</span>
@@ -47,7 +47,7 @@
                     Склады
                     <span class="arrow">›</span>
                 </a>
-                <a href="#" class="nav-item" data-page="products">
+                <a href="#" class="nav-item" data-page="products" style="display:none">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
                     Товары
                 </a>
@@ -56,7 +56,7 @@
                     Сотрудники
                     <span class="arrow">›</span>
                 </a>
-                <a href="#" class="nav-item" data-page="settings">
+                <a href="#" class="nav-item" data-page="settings" data-roles="Admin">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
                     Настройки
                 </a>
@@ -73,17 +73,17 @@
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
                 </button>
                 <div class="logo">
-                    <img src="../../images/logo.png" height="50" class="logo" draggable="false">
+                    <img src="images/logo.png" height="50" class="logo" draggable="false">
                     <span>SERVICECRM</span>
                 </div>
                 <div class="top-actions">
-                    <button class="icon-btn" title="История" onclick="showNotification('История действий')">
+                    <button class="icon-btn" title="История" onclick="openHistoryModal()">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
                     </button>
                     <button class="icon-btn" title="Уведомления" onclick="toggleNotifications()">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/></svg>
                     </button>
-                    <button class="icon-btn" title="Выход" onclick="showNotification('Выход из системы')">
+                    <button class="icon-btn" title="Выход" onclick="logout()">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
                     </button>
                 </div>
@@ -94,7 +94,6 @@
                 <div id="page-orders" class="page active">
                     <div class="tabs">
                         <button class="tab active" data-tab="client-orders">Заказы клиентов</button>
-                        <button class="tab" data-tab="supplier-orders">Заказы поставщикам</button>
                     </div>
 
                     <div class="action-bar">
@@ -116,14 +115,6 @@
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                             <h2>Заказы клиентов</h2>
                             <p>Здесь будут отображаться заказы клиентов на ремонт</p>
-                        </div>
-                    </div>
-
-                    <div id="tab-supplier-orders" class="tab-content">
-                        <div class="empty-data">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 13H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1v-6c0-.55-.45-1-1-1zM7 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM20 3H4c-.55 0-1 .45-1 1v6c0 .55.45 1 1 1h16c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1zM7 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
-                            <h2>Заказы поставщикам</h2>
-                            <p>Заказы запчастей и комплектующих у поставщиков</p>
                         </div>
                     </div>
                 </div>
@@ -175,7 +166,7 @@
                 <div id="page-clients" class="page">
                     <div class="page-header">
                         <h1 class="page-title">Клиенты</h1>
-                        <button class="btn btn-create" onclick="openCreateClientModal()">Добавить клиента</button>
+                        <button class="btn btn-create" id="btn-create-client" onclick="openCreateClientModal()">Добавить клиента</button>
                     </div>
                     <div class="empty-data">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
@@ -187,11 +178,7 @@
                 <!-- Страница: Бухгалтерия -->
                 <div id="page-accounting" class="page">
                     <h1 class="page-title">Бухгалтерия</h1>
-                    <div class="empty-data">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
-                        <h2>Финансы</h2>
-                        <p>Отчёты о доходах, расходах и прибыли</p>
-                    </div>
+                    <div id="accounting-content"></div>
                 </div>
 
                 <!-- Страница: Склады -->
@@ -211,7 +198,7 @@
                 <div id="page-products" class="page">
                     <div class="page-header">
                         <h1 class="page-title">Товары</h1>
-                        <button class="btn btn-create" onclick="openCreateProductModal()">Добавить товар</button>
+                        <button class="btn btn-create" id="btn-create-product" onclick="openCreateProductModal()">Добавить товар</button>
                     </div>
                     <div class="empty-data">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
@@ -244,13 +231,6 @@
                             <h3>Общие настройки</h3>
                             <p>Название компании, режим работы, контакты</p>
                         </div>
-                        <div class="settings-card" onclick="openSettingsModal('users')">
-                            <div class="settings-icon">
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-2.29 1.71-4.1 4.1-4.1s4.1 1.81 4.1 4.1v2z"/></svg>
-                            </div>
-                            <h3>Пользователи</h3>
-                            <p>Управление доступом и ролями</p>
-                        </div>
                         <div class="settings-card" onclick="openSettingsModal('service')">
                             <div class="settings-icon">
                                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
@@ -258,11 +238,74 @@
                             <h3>Сервис</h3>
                             <p>Настройка статусов, приоритетов, уведомлений</p>
                         </div>
-                        
                     </div>
                 </div>
             </div>
         </main>
+    </div>
+
+    <!-- Экран логина -->
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="images/logo.png" height="60">
+                <h1>ServiceCRM</h1>
+            </div>
+            <div id="login-error" class="login-error"></div>
+            <div class="login-tabs">
+                <button class="login-tab active" onclick="switchLoginTab('login')">Вход</button>
+                <button class="login-tab" onclick="switchLoginTab('register')">Регистрация</button>
+                <button class="login-tab" onclick="switchLoginTab('order')">Сделать заказ</button>
+            </div>
+            <div id="login-form">
+                <div class="form-group">
+                    <input type="text" id="login-name" placeholder="Имя пользователя">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-password" placeholder="Пароль" onkeydown="if(event.key==='Enter')login()">
+                </div>
+                <button class="btn btn-primary" onclick="login()" style="width:100%">Войти</button>
+            </div>
+            <div id="register-form" style="display:none">
+                <div class="form-group">
+                    <input type="text" id="reg-name" placeholder="Имя">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="reg-email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="reg-password" placeholder="Пароль" onkeydown="if(event.key==='Enter')register()">
+                </div>
+                <button class="btn btn-primary" onclick="register()" style="width:100%">Зарегистрироваться</button>
+            </div>
+            <div id="order-form" style="display:none">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label style="font-size:12px;color:#6b7280;margin-bottom:4px;display:block">Имя *</label>
+                        <input type="text" id="public-client-name" placeholder="Ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size:12px;color:#6b7280;margin-bottom:4px;display:block">Телефон *</label>
+                        <input type="tel" id="public-client-phone" placeholder="+375 (___) ___-__-__">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label style="font-size:12px;color:#6b7280;margin-bottom:4px;display:block">Устройство *</label>
+                        <input type="text" id="public-device" placeholder="iPhone 12">
+                    </div>
+                    <div class="form-group">
+                        <label style="font-size:12px;color:#6b7280;margin-bottom:4px;display:block">Серийный №</label>
+                        <input type="text" id="public-serial" placeholder="IMEI/SN">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label style="font-size:12px;color:#6b7280;margin-bottom:4px;display:block">Проблема</label>
+                    <textarea id="public-issue" placeholder="Опишите проблему" style="resize:vertical;min-height:60px;width:100%;padding:10px 12px;border:2px solid #e5e7eb;border-radius:8px;font-size:13px;box-sizing:border-box"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="submitPublicOrder()" style="width:100%;margin-top:8px">Отправить заказ</button>
+            </div>
+        </div>
     </div>
 
     <!-- Уведомления (тосты) -->
@@ -285,6 +328,6 @@
         </div>
     </div>
 
-    <script src="../Js/script.js"></script>
+    <script src="Js/script.js"></script>
 </body>
 </html>

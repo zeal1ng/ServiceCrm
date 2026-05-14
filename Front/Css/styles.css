@@ -715,6 +715,16 @@ body {
     white-space: nowrap;
 }
 
+.status-new { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+.status-Новый { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+.status-ready { background: linear-gradient(135deg, #10b981, #34d399); }
+.status-Готов { background: linear-gradient(135deg, #10b981, #34d399); }
+.status-issued { background: linear-gradient(135deg, #6b7280, #9ca3af); }
+.status-Выдан { background: linear-gradient(135deg, #6b7280, #9ca3af); }
+.status-diagnostics { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+.status-На диагностике { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+.status-repair { background: linear-gradient(135deg, #374151, #6b7280); }
+.status-В ремонте { background: linear-gradient(135deg, #374151, #6b7280); }
 .status-remont { background: linear-gradient(135deg, #374151, #6b7280); }
 .status-vydan { background: linear-gradient(135deg, #10b981, #34d399); }
 .status-bez-remonta { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
@@ -1025,11 +1035,31 @@ body {
     margin-bottom: 24px;
 }
 
+/* Бухгалтерия */
+.stat-card {
+    background: #1e3a3f;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #2a5057;
+}
+.stat-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #e0f2f1;
+    margin-bottom: 4px;
+}
+.stat-label {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
 /* Настройки */
 .settings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    max-width: 720px;
 }
 
 .settings-card {
@@ -1068,7 +1098,6 @@ body {
 /* Анимация появления карточек настроек */
 .settings-card:nth-child(1) { animation: cardSlideIn 0.5s ease 0.1s both; }
 .settings-card:nth-child(2) { animation: cardSlideIn 0.5s ease 0.2s both; }
-.settings-card:nth-child(3) { animation: cardSlideIn 0.5s ease 0.3s both; }
 
 .settings-icon {
     width: 50px;
@@ -1352,6 +1381,63 @@ body {
 .content::-webkit-scrollbar-track { background: #f3f4f6; }
 .content::-webkit-scrollbar-thumb { background: #c7c7c7; border-radius: 4px; }
 .content::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+
+/* Экран логина */
+.login-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #1a5c63 0%, #0d3338 100%);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+.login-overlay.active { display: flex; }
+.login-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px;
+    width: 380px;
+    max-width: 90vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: modalSlideUp 0.4s ease;
+}
+.login-logo { text-align: center; margin-bottom: 24px; }
+.login-logo h1 { color: #1a5c63; margin: 8px 0 0; font-size: 24px; }
+.login-error { color: #f44336; font-size: 13px; margin-bottom: 12px; text-align: center; }
+.login-box .form-group { margin-bottom: 14px; }
+.login-box .form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+.login-box .form-group input:focus { border-color: #1a5c63; outline: none; }
+.login-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+.login-tab {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: #f9fafb;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+    transition: all 0.2s;
+}
+.login-tab.active {
+    background: #1a5c63;
+    color: #fff;
+}
 
 /* ==================== АДАПТИВ ==================== */
 

@@ -1,5 +1,10 @@
 {
-  "dependencies": {
-    "openai": "^6.34.0"
+  "name": "servicecrm",
+  "version": "1.0.0",
+  "description": "CRM для сервисного центра (ASP.NET Core + Vanilla JS + PostgreSQL)",
+  "private": true,
+  "scripts": {
+    "dev:api": "dotnet run --project ServiceCrmApi",
+    "dev:front": "echo 'Open Front/index.html in browser or serve via any HTTP server'"
   }
 }
