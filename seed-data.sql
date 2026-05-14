@@ -15,13 +15,13 @@
 
 -- ==================== ПОЛЬЗОВАТЕЛИ ====================
 INSERT INTO "Users" ("Name", "Phone", "Email", "password", "Role", "Specialization", "Comission_percent", "CreatedAt") VALUES
-('Иван Петров',     '+375291234567', 'ivan@example.com',    '$2b$10$KvfwMhw3o0P6N79gVR3YUuFPbVXQZmhoPCKZyliUC5LAXziY9oRcy', 'Admin',   'Руководитель',   5,  '2026-01-10 09:00:00+03'),
+('admin',     '+375291234567', 'ivan@example.com',    '$2a$12$5Pgjk/.M5jZzjwB8TWA4zeHM.Wuh/46Yupi9BCFrk053WMseXXj3K', 'Admin',   'Руководитель',   5,  '2026-01-10 09:00:00+03'),
 ('Алексей Смирнов', '+375292345678', 'alexey@example.com',  '$2b$10$23wme7QwINL0oFF9tCwQZObaw40A4WfglJ2OdzochmmTnIFwEHyHK', 'Master',  'Ремонт телефонов',  10, '2026-01-15 10:00:00+03'),
 ('Дмитрий Иванов',  '+375293456789', 'dmitry@example.com',  '$2b$10$/vJT.hOuW4uD5FBosEbiGukPkEHoNFhVN7YX/vP9uhiqnDtkf3.fi', 'Manager', NULL,              8,  '2026-02-01 11:00:00+03'),
 ('Елена Козлова',   '+375294567890', 'elena@example.com',   '$2b$10$23wme7QwINL0oFF9tCwQZObaw40A4WfglJ2OdzochmmTnIFwEHyHK', 'Master',  'Ремонт ноутбуков',   10, '2026-02-10 12:00:00+03'),
 ('Сергей Новиков',  '+375295678901', 'sergey@example.com',  '$2b$10$23wme7QwINL0oFF9tCwQZObaw40A4WfglJ2OdzochmmTnIFwEHyHK', 'Master',  'Ремонт планшетов',   10, '2026-03-01 09:00:00+03');
 
--- Пароли: admin123 / master123 / manager123
+-- Пароли: 457277 / master123 / manager123
 
 -- ==================== КЛИЕНТЫ ====================
 INSERT INTO "Clients" ("Name", "Phone", "Email", "Comment", "CreatedAt") VALUES

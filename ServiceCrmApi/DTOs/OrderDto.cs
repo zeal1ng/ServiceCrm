@@ -12,6 +12,7 @@ public class OrderDto
     public decimal Cost { get; set; }
     public decimal Paid { get; set; }
     public DateTime CreatedAt { get; set; }
+    public DateTime? CompletedAt { get; set; }
     
     // Только ID и имя клиента, НЕ весь объект Client со списком заказов
     public int ClientId { get; set; }

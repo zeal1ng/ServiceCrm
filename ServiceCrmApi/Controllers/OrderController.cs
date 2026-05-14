@@ -70,6 +70,7 @@ public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrders(
             Cost = o.Cost,
             Paid = o.Paid,
             CreatedAt = o.CreatedAt,
+            CompletedAt = o.CompletedAt,
             ClientId = o.ClientId,
             ClientName = o.Client != null ? o.Client.Name : null,
             UserId = o.UserId,
@@ -99,6 +100,7 @@ public async Task<ActionResult<OrderDto>> GetOrder(int id)
             Cost = o.Cost,
             Paid = o.Paid,
             CreatedAt = o.CreatedAt,
+            CompletedAt = o.CompletedAt,
             ClientId = o.ClientId,
             ClientName = o.Client != null ? o.Client.Name : null,
             UserId = o.UserId,
@@ -163,6 +165,7 @@ public async Task<ActionResult<OrderDto>> GetOrder(int id)
             Cost = order.Cost,
             Paid = order.Paid,
             CreatedAt = order.CreatedAt,
+            CompletedAt = order.CompletedAt,
             ClientId = order.ClientId,
             ClientName = client.Name, // Берем из загруженного ранее клиента
             UserId = executorId,
@@ -193,6 +196,16 @@ public async Task<ActionResult<OrderDto>> GetOrder(int id)
             order.Priority = p;
             
         order.Status = dto.Status;
+
+        if (dto.Status == "Ready" || dto.Status == "Issued")
+        {
+            if (order.CompletedAt == null)
+                order.CompletedAt = DateTime.UtcNow;
+        }
+        else
+        {
+            order.CompletedAt = null;
+        }
 
         if (dto.ClientId.HasValue && dto.ClientId.Value != order.ClientId)
         {
